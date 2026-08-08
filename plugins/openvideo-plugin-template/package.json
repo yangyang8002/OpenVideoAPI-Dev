@@ -1,0 +1,52 @@
+{
+  "name": "openvideo-plugin-template",
+  "version": "0.1.0",
+  "description": "template 插件（OpenVideoAPI）",
+  "main": "lib/index.js",
+  "license": "MIT",
+  "openvideoPlugin": {
+    "name": "template",
+    "description": "我的 template 插件",
+    "inject": [
+      "store",
+      "model",
+      "app",
+      "logger",
+      "http"
+    ],
+    "provide": [],
+    "schema": [
+      {
+        "key": "greeting",
+        "label": "欢迎语",
+        "type": "string",
+        "default": "Hello from template",
+        "hint": "启动时打印"
+      },
+      {
+        "key": "enabled",
+        "label": "启用功能",
+        "type": "boolean",
+        "default": true
+      }
+    ],
+    "client": {
+      "admin": {
+        "scripts": [
+          "lib/client/admin/panel.js"
+        ],
+        "tabs": [
+          {
+            "id": "template-panel",
+            "title": "template"
+          }
+        ]
+      },
+      "player": {
+        "scripts": [
+          "lib/client/player/hook.js"
+        ]
+      }
+    }
+  }
+}

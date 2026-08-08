@@ -1,0 +1,12 @@
+{
+  "name": "open-video-api-dev",
+  "version": "1.0.0",
+  "private": true,
+  "description": "OpenVideoAPI 插件开发环境 (Plugin dev environment)",
+  "scripts": {
+    "setup": "node tools/setup.js",
+    "dev": "node tools/dev.js",
+    "new": "node tools/new-plugin.js",
+    "new:plugin": "node tools/new-plugin.js"
+  }
+}

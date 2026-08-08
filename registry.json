@@ -1,0 +1,15 @@
+{
+  "updated": "2026-08-08",
+  "_comment": "本地开发用插件市场（file:// 源演示）。生产 registry 位于主仓库 plugin-registry.json。安装走 npm，本地插件直接放入 plugins/ 目录即可（无需通过市场）。",
+  "plugins": [
+    {
+      "name": "openvideo-plugin-demo",
+      "description": "官方示例：服务 / 动态表 / 事件 / 调试 tab / 播放器浮层",
+      "author": "yangyang8002",
+      "homepage": "https://github.com/yangyang8002/OpenVideoAPI",
+      "tags": ["官方", "示例"],
+      "versions": ["1.0.0"],
+      "dependencies": []
+    }
+  ]
+}
