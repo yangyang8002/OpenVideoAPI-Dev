@@ -1,6 +1,6 @@
 # OpenVideoAPI-Dev
 
-OpenVideoAPI 的**插件开发环境**。克隆本仓库即可开始开发 Koishi 风格的插件——无需手动搭服务、无需发布 npm 包，改代码自动热重载。
+OpenVideoAPI 的**插件开发环境**。克隆本仓库即可开始开发插件——无需手动搭服务、无需发布 npm 包，改代码自动热重载。
 
 English | [中文](README.cn.md)
 
