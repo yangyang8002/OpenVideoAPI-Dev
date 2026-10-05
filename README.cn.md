@@ -2,7 +2,7 @@
 
 OpenVideoAPI 的**插件开发环境**。克隆本仓库即可开始开发插件——无需手动搭服务、无需发布 npm 包，改代码自动热重载。
 
-English | [中文](README.cn.md)
+[English](README.md) | 中文
 
 ## 快速开始
 
@@ -18,7 +18,7 @@ npm run new myplugin   # 生成插件骨架 plugins/openvideo-plugin-myplugin/
 OpenVideoAPI-Dev/
 ├── server/              # OpenVideoAPI 服务端代码（setup 克隆，git 管理可随时 pull）
 ├── plugins/             # ★ 你的插件都放这里（本地包，无需 npm 发布）
-│   ├── openvideo-plugin-demo/       # 完整示例：服务 / 动态表 / 事件 / 后台 tab / 播放器钩子
+│   ├── openvideo-plugin-demo/       # 完整示例（1.1.0）：路由 / 动态表 / 事件 / 定时任务 / 自定义页面 / 静态资源 / 后台 tab / 播放器浮层
 │   └── openvideo-plugin-<你的>/      # npm run new 生成
 ├── tools/
 │   ├── setup.js         # 初始化（克隆 server + 装依赖）
@@ -49,9 +49,39 @@ OpenVideoAPI-Dev/
 
 ## 插件规范
 
-插件是 **npm 包**，`package.json` 的 `openvideoPlugin` 字段声明能力（inject/provide/schema/client）。后端 `apply(ctx, config)`；前端 `OpenVideoAdmin.registerTab` / `OpenVideoPlayer.replace`。完整文档：<https://doc.mbps.top/plugins/>
+插件是 **npm 包**，`package.json` 的 `openvideoPlugin` 字段声明能力：
+
+```json
+{
+  "openvideoPlugin": {
+    "name": "hello",
+    "inject": ["store", "model", "app", "logger", "http"],
+    "provide": [],
+    "schema": [...],
+    "client": {
+      "admin": { "scripts": [...], "tabs": [{ "id": "hello", "title": "hello" }] },
+      "player": { "scripts": [...], "replaces": false }
+    }
+  }
+}
+```
+
+- 后端：`apply(ctx, config)`；`ctx` 提供 `router` / `store` / `model`（动态表）/ `app`（重启·版本·配置）/ `logger` / `http` / `on·emit` / `provide·service`
+- 前端：`OpenVideoAdmin.registerTab`（后台 tab）、`OpenVideoPlayer.replace/onReady`（播放器）
+- 完整文档：<https://doc.mbps.top/plugins/>
+
+### 插件契约 v2（26.10.0+）
+
+自 26.10.0 起插件契约 v2 完全向后兼容（v1 插件无需修改即可运行）：
+
+- manifest 新增可选 `deps`（`openvideo` 语义化版本范围 + 依赖插件表，自动递归启用）与 `hooks`（`install`/`enable`/`disable`/`uninstall`/`update`）。
+- `ctx` 新增 `static`（托管包内静态资源）、`pages.register`（自定义后台页面）、`cron.every|at`、`settings`（插件 KV 存储）、`logs`、`i18n`、`bus`（插件间事件）、`model.namespace`（命名空间表）与 `http.request|text`；`ctx.on` 现在返回取消函数。
+
+完整契约见 [OpenVideoAPI 主仓库](https://github.com/yangyang8002/OpenVideoAPI)根目录的 `PLUGIN-CONTRACT.md`；[plugins/openvideo-plugin-demo](plugins/openvideo-plugin-demo/)（v1.1.0）是覆盖自定义页面、静态资源、定时任务、事件与模型命名空间的 v2 完整范例。
 
 ## 提交你的插件
+
+开发完成后：
 
 1. 发布到 npm（包名建议 `openvideo-plugin-*`）
 2. 向 [OpenVideoAPI 仓库](https://github.com/yangyang8002/OpenVideoAPI) 提交 PR，登记到 `plugin-registry.json`
@@ -59,7 +89,7 @@ OpenVideoAPI-Dev/
 ## 相关仓库
 
 - [OpenVideoAPI](https://github.com/yangyang8002/OpenVideoAPI) — 服务端
-- [OpenVideoAPI Docs](https://github.com/yangyang8002/Artplayer-Web-Api-Docs) — 文档站（doc.mbps.top）
+- [OpenVideoAPI-Docs](https://github.com/yangyang8002/OpenVideoAPI-Docs) — 文档站（doc.mbps.top）
 
 ## License
 
